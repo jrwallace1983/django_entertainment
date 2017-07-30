@@ -10,11 +10,12 @@
 <div class="container-fluid">
 
     <div class="row">
-            {% for album in artist.album_set.all %}
-        <div class="col-sm-4">
+            {% for album in albums %}
+        <div class="col-sm-3">
             <div class="dropdown">
             <a class="dropdown-toggle"type="button" data-toggle="dropdown">
                 <h3>{{ album.name }}</h3></a>
+                <h5>Released {{ album.release_year }}</h5>
             <ul class="dropdown-menu">
                 <li><a href="{% url 'music:songs' album.slug %}"><h4>Album Tracks</h4></a></li>
                 <li>test2</li>

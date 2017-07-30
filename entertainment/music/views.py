@@ -20,6 +20,15 @@ class DetailView(generic.DetailView):
         '''excludes any questions that aren't published yet'''
         return Artist.objects.all()
 
+def show_albums(request, artist_name_slug):
+    context_dict = {}
+    artist = Artist.objects.get(slug=artist_name_slug)
+    albums = Album.objects.filter(artist=artist).order_by('release_year')
+    context_dict['artist'] = artist
+    context_dict['albums'] = albums
+    return render(request, 'music/detail.html', context_dict)
+
+
 def show_songs(request, album_name_slug):
     context_dict = {}
 
