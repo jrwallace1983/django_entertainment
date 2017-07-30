@@ -7,14 +7,14 @@ from django.template.defaultfilters import slugify
 
 class Artist(models.Model):
     name = models.CharField(max_length=200)
-    origin = models.CharField(max_length=200)
-    website = models.URLField(max_length=200)
-    votes = models.IntegerField(default=0)
-    logo = models.URLField(max_length=200, null=True)
-    members = models.CharField(max_length=500, null=True)
-    summary = models.TextField()
+    origin = models.CharField(max_length=200, blank=True,null=True)
+    website = models.URLField(max_length=200, blank=True, null=True)
+    votes = models.IntegerField(default=0, blank=True, null=True)
+    logo = models.URLField(max_length=200, blank=True, null=True)
+    members = models.CharField(max_length=500, blank=True, null=True)
+    summary = models.TextField(blank=True, null=True)
     slug = models.SlugField(unique=True)
-    youtube = models.URLField(max_length=300, null=True)
+    youtube = models.URLField(max_length=300, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -27,12 +27,12 @@ class Artist(models.Model):
 class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    chart = models.IntegerField(default=0)
-    award = models.CharField(max_length=200)
-    release_year = models.DateField()
-    cover = models.URLField(max_length=500)
-    votes = models.IntegerField(default=0)
-    youtube = models.URLField(max_length=500, null=True)
+    chart = models.IntegerField(default=0, blank=True, null=True)
+    award = models.CharField(max_length=200, blank=True, null=True)
+    release_year = models.DateField(blank=True, null=True)
+    cover = models.URLField(max_length=500, blank=True, null=True)
+    votes = models.IntegerField(default=0, blank=True, null=True)
+    youtube = models.URLField(max_length=500, blank=True, null=True)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -45,11 +45,11 @@ class Album(models.Model):
 class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    chart = models.IntegerField(default=0)
-    award = models.CharField(max_length=200)
-    chart_date = models.DateField()
-    youtube = models.URLField(max_length=500)
-    votes = models.IntegerField(default=0)
+    chart = models.IntegerField(default=0, blank=True, null=True)
+    award = models.CharField(max_length=200, blank=True, null=True)
+    chart_date = models.DateField(blank=True, null=True)
+    youtube = models.URLField(max_length=500, blank=True, null=True)
+    votes = models.IntegerField(default=0, blank=True, null=True)
 
     def __str__(self):
         return self.name
